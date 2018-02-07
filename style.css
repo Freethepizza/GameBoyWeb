@@ -68,3 +68,12 @@
     color: #000;
     text-align: center;
 }
+
+.social{
+    -webkit-transition: margin-top 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: margin-top 0.5s;
+}
+
+.social:hover{
+    margin-top: -5%;
+}
