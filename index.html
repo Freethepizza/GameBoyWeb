@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Gameboy</title>
+</head>
+
+<body>
+
+    <div class="gameboy">
+        <div class="cristal">
+            <div id="pause" class="pausemenu" style="display: none">
+                <p>pause</p><div style="margin-top: 10%; margin-left: 9%;">
+                <img src="includes/facebook.png" alt="Facebook">
+                <img src="includes/twitter.png" alt="Twitter">
+                <img src="includes/instagram.png" alt="Instagram">
+                <img src="includes/youtube.png" alt="YouTube">
+                </div>
+                </div>
+        </div>
+        <div class="video">
+            <div id="player"></div>
+            <div id="test" class="circle">
+                <!--<iframe id="video" width="180" height="180" src="https://www.youtube.com/embed/YniajFDx6-4?
+      enablejsapi=1&&html5=1&controls=0&autoplay=1" frameborder="0" allowfullscreen></iframe></div>-->
+            </div>
+            <div id="siguiente" class="next"></div>
+            <div class="pausebutton" onclick="start()"></div>
+            <div id="anterior" class="previous"></div>
+        </div>
+    </div>
+
+
+    <script>
+        // 2. This code loads the IFrame Player API code asynchronously.
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/player_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        // 3. This function creates an <iframe> (and YouTube player)
+        //    after the API code downloads.
+        var player;
+
+        function onYouTubePlayerAPIReady() {
+            player = new YT.Player('player', {
+                height: '315',
+                width: '560',
+                videoId: 'JoDITu2TGQM',
+                playerVars: { 'autoplay': 1,
+                    'controls': 0,
+                    playlist: 'XfBFPW6x8Zs,2RtmduDS0PA,YniajFDx6-4',
+                    'showinfo': 0,
+                    'modestbranding': 1,
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+            document.getElementById('test').onclick = function() {
+                PlayPause();
+                return 1;
+            };
+            document.getElementById('siguiente').onclick = function() {
+                player.nextVideo();
+            };
+            document.getElementById('anterior').onclick = function() {
+                player.previousVideo();
+            };
+        }
+
+        var playerState;
+
+        function onPlayerStateChange(event) {
+            var getId = document.getElementById('test');
+            playerState = event.data;
+        }
+
+        // 5. This function Play/Pause the video.
+        function PlayPause() {
+            if (playerState == '1') {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        function start() {
+            if (document.getElementById("pause").style.display == "none") {
+                player.pauseVideo();
+                document.getElementById("pause").style.display = "block"
+                document.getElementById("test").style.display = "none"
+            } else if (document.getElementById("pause").style.display == "block") {
+                player.playVideo();
+                document.getElementById("pause").style.display = "none";
+                document.getElementById("test").style.display = "block"
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
